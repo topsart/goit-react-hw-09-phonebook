@@ -1,0 +1,8 @@
+.form {
+  padding: 16px 16px;
+  margin-bottom: 50px;
+}
+
+.form_item:not(:last-child) {
+  margin-right: 10px;
+}
