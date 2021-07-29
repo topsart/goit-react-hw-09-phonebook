@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ContactsList from '../components/ContactsList';
 import Form from '../components/Form';
 import Filter from '../components/Filter';
 import { contactsOperations } from '../redux/contacts';
 
-class Contacts extends Component {
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+export default function Contacts() {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <>
-        <Form onSubmit={this.addContact} />
-        <div>
-          <Filter />
-          <ContactsList />
-        </div>
-      </>
-    );
-  }
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+  }, [dispatch]);
+
+  return (
+    <>
+      <Form />
+      <div>
+        <Filter />
+        <ContactsList />
+      </div>
+    </>
+  );
 }
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(contactsOperations.fetchContacts()),
-});
-
-export default connect(null, mapDispatchToProps)(Contacts);
